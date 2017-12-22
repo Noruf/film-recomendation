@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h2.page-header Profile
+    hr
+    .container
+      table.table.table-striped.table-bordered.table-hover
+        tr
+          td Login
+          td #{user.username}
+        tr
+          td Name
+          td #{user.name}
+        tr
+          td Email
+          td #{user.email}
+        tr
+          td Films rated
+          td #{user.filmsRated}

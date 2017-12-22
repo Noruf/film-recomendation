@@ -1,0 +1,59 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=yes")
+
+
+        title Welcome
+
+        
+        
+        link(href="/stylesheets/lib/bootstrap/bootstrap.min.css", rel="stylesheet")
+        link(href="/stylesheets/lib/bootstrap/bootstrap-grid.min.css", rel="stylesheet")
+        link(href="/stylesheets/lib/bootstrap/bootstrap-reboot.min.css", rel="stylesheet")
+        //- link(href="/bootstrap/css/bootstrap.min.css", rel="stylesheet")
+        //- link(href="/bootstrap/css/bootstrap-grid.min.css", rel="stylesheet")
+        //- link(href="/bootstrap/css/bootstrap-reboot.min.css", rel="stylesheet")
+        link(href="/stylesheets/style.css", rel="stylesheet")
+        
+body
+    nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
+      .container
+          .navbar-header
+              a.navbar-brand(href="/") I love FILMS
+          .collapse.navbar-collapse
+              ul.navbar-nav.mr-auto
+                  li.nav-item(class=(title == "Members" ? "active" : ""))
+                      a.nav-link( href="/" ) Members
+                  li.nav-item(class=(title == "Film Database" ? "active" : ""))
+                      a.nav-link( href="/films" ) Film Database
+                  if user
+                      li.nav-item(class=(title == "Add Film" ? "active" : ""))
+                          a.nav-link( href="/films/add" ) Add Film
+              ul.nav.navbar-nav.navbar-right
+                  if user
+                      li.nav-item(class=(title == "Profile" ? "active" : ""))
+                          a.nav-link( href="/users/profile" ) Profile
+                  if !user
+                      li.nav-item(class=(title == "Register" ? "active" : ""))
+                          a.nav-link( href="/users/register" ) Register
+                      li.nav-item(class=(title == "Login" ? "active" : ""))
+                          a.nav-link( href="/users/login" ) Login
+  
+                  if user
+                      li
+                          a.nav-link( href="/users/logout" ) Logout
+      
+                    
+    .container
+        != messages()
+        block content
+      
+    
+    script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+    script(src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js")
+    script(src="/javascripts/lib/bootstrap/bootstrap.js")
+    script(src="/js/main.js")
+    
+    //- script(src="https://npmcdn.com/bootstrap@4.0.0-alpha.5/dist/js/bootstrap.min.js")

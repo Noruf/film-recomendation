@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  .row
+    .container.col-md-8
+      h1= film.title + " (" + film.year + ")"
+      p= film.minutes+ " minutes"
+      p= film.description
+    .container.col-md-4.text-right
+      h3 Rating
+      h2 2.5
+      - var i=1
+      while i<=5
+        button.btn.btn-sm.btn-rating(class=(i==film.rating?'btn-success':'') ,rate=i,filmid=film._id) #{i++}
+  .container
+    table.table.table-striped.table-bordered.table-hover
+      tr
+        td genre
+        td= film.genre
+      tr
+        td director
+        td= film.director
+      tr
+        td scenarist
+        td= film.scenarist
+      tr
+        td country
+        td= film.country
+      tr
+        td premiere
+        td= film.premiere.toDateString()
+  
+  if film.actors.length>0
+      h2 actors
+      .container
+        table.table.table-striped.table-bordered.table-hover
+          each actor, i in film.actors
+              tr
+                td #{actor.name}
+                td #{actor.role}
+        
+  .text-left.col-sm-10
+    #editGroup.btn-group(role='group', aria-label='')
+      a.button#edit.btn.btn-primary.btn-lg(href='/films/edit/'+film._id,  name='edit', aria-label='Edit') Edit
+      a.button#delete.btn.btn-danger.btn-lg.delete-film(href='#', data-id=film._id, aria-label='Delete') Delete
+
+          

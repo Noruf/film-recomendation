@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  h1 #{title}
+  if errors
+      each error, i in errors
+          div.alert.alert-danger #{error.msg}
+  form.form-horizontal(method='POST', action=(title=='Add Film'?'/films/add':'/films/edit/'+film._id))
+    .form-group
+      label.control-label(for='title') Title
+      input.form-control.input-md#title(name='title', type='text', value=film.title)
+    .form-group
+      label.control-label year:
+      input.form-control(name='year', type='number', min=1900, max=2050,value=film.year||2017)
+    .form-group
+      label.control-label description:
+      textarea.form-control(name='description')=film.description
+    .form-group
+      label.control-label genre:
+      input.form-control(name='genre', type='text',value=film.genre?film.genre.toString():'')
+    .form-group
+      label.control-label director:
+      input.form-control(name='director', type='text',value=film.director)
+    .form-group
+      label.control-label scenarist:
+      input.form-control(name='scenarist', type='text',value=film.scenarist)
+    .form-group
+      label.control-label country:
+      input.form-control(name='country', type='text',value=film.country)
+    .form-group
+      label.control-label premiere:
+      input.form-control(type='date',name='premiere',\
+      value=film.premiere?film.premiere.toJSON().substr(0,10):'')
+    .form-group
+      label.control-label time in minutes:
+      input.form-control(name='minutes', type='number',min=1, max=600,value=film.minutes||90)
+    
+    .form-group
+      label.control-label actors:
+      textarea.form-control(name='actors')=actorString
+          
+
+    br
+    input.btn.btn-primary(type='submit',value='Submit')
+    
