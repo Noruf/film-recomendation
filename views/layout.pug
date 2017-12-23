@@ -2,7 +2,7 @@ doctype html
 html(lang="en")
     head
         meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=yes")
+        meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
 
 
         title Welcome
@@ -18,11 +18,13 @@ html(lang="en")
         link(href="/stylesheets/style.css", rel="stylesheet")
         
 body
-    nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
+    nav.navbar.navbar-toggleable-md.navbar-light.sticky-top.bg-faded
+      button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
+        span.navbar-toggler-icon
       .container
           .navbar-header
               a.navbar-brand(href="/") I love FILMS
-          .collapse.navbar-collapse
+          .collapse.navbar-collapse#navbarCollapse
               ul.navbar-nav.mr-auto
                   li.nav-item(class=(title == "Members" ? "active" : ""))
                       a.nav-link( href="/" ) Members
@@ -44,16 +46,16 @@ body
                   if user
                       li
                           a.nav-link( href="/users/logout" ) Logout
-      
-                    
+
     .container
         != messages()
         block content
-      
     
-    script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+    
+    //-script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+    script(src="/javascripts/lib/jquery-3.2.1.min.js")
     script(src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js")
     script(src="/javascripts/lib/bootstrap/bootstrap.js")
-    script(src="/js/main.js")
+    script(src="/javascripts/main.js")
     
     //- script(src="https://npmcdn.com/bootstrap@4.0.0-alpha.5/dist/js/bootstrap.min.js")

@@ -1,5 +1,19 @@
 extends layout
 
 block content
-  h1 Members Area
-  p Welcome to Members Area
+  .jumbotron
+    .col-sm-8.mx-auto
+      h1 I love FILMS
+      p 
+      | Find films to watch! Rate at least 5 films and this website will help
+      | you find recomended films based on your taste.
+      
+      p 
+      |To start 
+      a(href='/users/register') register
+      |  new account or 
+      a(href='/users/login') login
+      |  if you have one.
+      
+      p
+      a.btn.btn-primary(href='/films', role='button') Check out film database

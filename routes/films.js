@@ -66,7 +66,7 @@ router.get('/edit/:id', ensureAuthenticated, function(req, res, next) {
 
 router.post('/edit/:id', function(req, res) {
   let filmID = req.params.id;
-  Film.getFilmById(filmID, function(err, oldfilm) {
+  Film.getFilmById(filmID, function(err, oldFilm) {
     if (err) throw err;
 
     let film = createFilm(req, oldFilm);
@@ -100,7 +100,7 @@ router.post('/edit/:id', function(req, res) {
 function createFilm(req, oldFilm) {
   let film = oldFilm ? {} : new Film()
 
-  var lines = /[^\r\n]+/g;
+  var lines = /[\r\n]+/g;
   var words = /\b\w+\b/g;
   var rolesplit = /\s*[^a-zA-Z0-9\s]+\s*/;
 
@@ -117,10 +117,11 @@ function createFilm(req, oldFilm) {
   var actorsLines = req.body.actors.split(lines);
   var actors = [];
   actorsLines.forEach(function(line, i) {
+    if(line.length<1) return;
     l = line.split(rolesplit);
     actors.push({
-      name: l[0],
-      role: l[1]
+      name: l[0]||"",
+      role: l[1]||""
     });
   });
 
@@ -188,8 +189,8 @@ router.delete('/:id', function(req, res) {
 
 router.post('/rate/:id/:rating', function(req, res, next) {
   if (!req.user) {
-    alert('You have to be logged in to do this');
     res.status(500).send();
+    return;
   }
   let query = {
     userID: req.user._id,
@@ -207,7 +208,6 @@ router.post('/rate/:id/:rating', function(req, res, next) {
         rating: req.params.rating
       });
     }
-    console.log('hello22')
     rating.save(rating, function(err) {
       if (err) {
         res.status(500).send();

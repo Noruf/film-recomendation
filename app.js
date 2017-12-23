@@ -16,17 +16,11 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 
-
 mongoose.connect('mongodb://admin:averystrongpassword@ds121716.mlab.com:21716/film_recomendation', { useMongoClient: true });
 
 db.once('open',function(){
   console.log('Connected to mongodb');
 });
-
-
-var index = require('./routes/index');
-var users = require('./routes/users');
-var films = require('./routes/films');
 
 var app = express();
 
@@ -88,6 +82,10 @@ app.get('*', function(req, res, next){
     next();
 });
 
+//routes
+var index = require('./routes/index');
+var users = require('./routes/users');
+var films = require('./routes/films');
 app.use('/', index);
 app.use('/users', users);
 app.use('/films', films);
