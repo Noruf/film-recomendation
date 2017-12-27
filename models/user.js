@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
+var Film = require('../models/film');
+var Schema = mongoose.Schema;
+
 // User Schema
 var UserShema = mongoose.Schema({
   username: {
@@ -20,7 +23,7 @@ var UserShema = mongoose.Schema({
     type: String
   },
   recomendations: {
-    type: Array,
+    type: [{ type: Schema.Types.ObjectId, ref: 'Film' }],
     "default" : []
   },
   role:{

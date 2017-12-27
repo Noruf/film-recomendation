@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h2 #{title}
+  p Users with similar film taste to you will be listed in the table below
+    .container
+      table.table.table-striped.table-bordered
+        tr
+          th username
+          th similarity coefficient
+        each c, i in coefficients
+          tr
+            td #{c.username}
+            td #{c.coefficient}

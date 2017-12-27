@@ -1,8 +1,8 @@
 var Rating = require('../models/rating');
-var Correlation = require('../models/rating');
+var Correlation = require('../models/correlation');
 
 //calculates stats needed for Pearson Corellation
-function calcStats(arr){
+module.exports.calcStats = function (arr){
   stats={sum1:0,sum2:0,sumProducts:0, n:arr.length, sumsq1:0, sumsq2:0};
   for (let i=0;i<arr.length;i++){
     stats.sum1+=arr[i][0];
@@ -16,11 +16,42 @@ function calcStats(arr){
   return stats;
 }
 
+//calculate Pearson Corellation
+module.exports.pearson = function (ratings1,ratings2){
+  let ratings=[];
+  //console.log(ratings2);
+  for(let i=0;i<ratings1.length;i++){
+    let r2 = ratings2.find(x => x.filmID.toString() == ratings1[i].filmID.toString());
+    console.log(typeof(ratings1[i].filmID.toString()));
+
+    console.log(typeof("sadsadsda"));
+    console.log(ratings1[i].filmID);
+    for(let k=0;k<ratings2.length;k++){
+      console.log(ratings2[k].filmID.valueOf());
+    }
+    console.log("111");
+    if(r2){
+      ratings.push([ratings1[i].rating, r2.rating]);
+    }
+  }
+  //console.log(ratings);
+  if (ratings.length<5) return undefined;
+  let stats = module.exports.calcStats(ratings);
+
+  let r = (stats.sumProducts - stats.n * stats.avg1 * stats.avg2)/
+          (Math.sqrt(stats.sumsq1-stats.n*stats.avg1*stats.avg1)*
+          Math.sqrt(stats.sumsq2-stats.n*stats.avg2*stats.avg2));
+  return r?r:0;
+}
+
 //look for film ratings of both users
-function getRatings(userID1,userID2){
-  Rating.find({_id:userID1},function(err,ratings1){
-    Rating.find({_id:userID2},function(err,ratings2){
-      let r = calculateCorelation(ratings1,ratings2)
+module.exports.calculateCorrelation = function(userID1,userID2){
+  Rating.find({userID:userID1},function(err,ratings1){
+    Rating.find({userID:userID2},function(err,ratings2){
+      //console.log(ratings2);
+      let r = module.exports.pearson(ratings1,ratings2);
+      //console.log(r);
+      if(!r)return;
       Correlation.findOne({usersID:{ $all:[userID1,userID2] }},function(err,cor){
         if(cor){
           cor.r = r;
@@ -30,7 +61,7 @@ function getRatings(userID1,userID2){
             r:r
           });
         }
-        Correlation.save(cor,function(err,correl){
+        cor.save(function(err,correl){
           if(err){
             console.log(err);
           }
@@ -38,23 +69,4 @@ function getRatings(userID1,userID2){
       });
     });
   });
-}
-
-//calculate Pearson Corellation
-function calculateCorrelation(ratings1,ratings2){
-  let ratings=[];
-  for(let i=0;i<ratings1.length;i++){
-    let r2 = ratings2.find(x => x.filmID == ratings1[i].filmID);
-    if(r2){
-      ratings.push([ratings1[i].rating, r2.rating]);
-    }
-  }
-  if (ratings.length<5) return undefined;
-  let stats = calcStats(ratings);
-
-  let r = (stats.sumProducts - stats.n * stats.avg1 * stats.avg2)/
-          (sqrt(stats.sumsq1-stats.n*stats.avg1*stats.avg1)*
-          sqrt(stats.sumsq2-stats.n*stats.avg2*stats.avg2));
-
-  return r?r:0;
 }

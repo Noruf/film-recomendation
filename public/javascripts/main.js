@@ -30,4 +30,18 @@ $(document).ready(function() {
       }
     });
   });
+  $('#btn-correlation').on('click', function(e) {
+    $target = $(e.target);
+    $target.attr('disabled', 'disabled');
+    $.ajax({
+      type: 'POST',
+      url: '/recomendation/calculate',
+      success: function(response) {
+        console.log("correlation calculated!!");
+      },
+      error: function(err) {
+        alert(err.statusText)
+      }
+    });
+  });
 });

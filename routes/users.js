@@ -122,8 +122,12 @@ router.get('/logout', function (req, res){
 router.get('/profile', function (req, res){
   Rating.count({userID:req.user._id},function(err,count){
     req.user.filmsRated = count;
-    res.render('profile', {user: req.user});
-  });  
+    res.render('profile', {title:'Profile', user: req.user});
+  });
+});
+
+router.get('/admin',function(req,res){
+  res.render('admin',{title:'Admin Tools'});
 });
 
 module.exports = router;

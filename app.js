@@ -86,9 +86,11 @@ app.get('*', function(req, res, next){
 var index = require('./routes/index');
 var users = require('./routes/users');
 var films = require('./routes/films');
+var recomendation = require('./routes/recomendation');
 app.use('/', index);
 app.use('/users', users);
 app.use('/films', films);
+app.use('/recomendation', recomendation);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

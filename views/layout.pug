@@ -33,8 +33,12 @@ body
                   if user
                       li.nav-item(class=(title == "Add Film" ? "active" : ""))
                           a.nav-link( href="/films/add" ) Add Film
+                      li.nav-item(class=(title == "Neighbours" ? "active" : ""))
+                          a.nav-link( href="/recomendation/neighbours" ) Neighbours
               ul.nav.navbar-nav.navbar-right
                   if user
+                      li.nav-item(class=(title == "Admin Tools" ? "active" : ""))
+                          a.nav-link( href="/users/admin" ) Admin Tools
                       li.nav-item(class=(title == "Profile" ? "active" : ""))
                           a.nav-link( href="/users/profile" ) Profile
                   if !user

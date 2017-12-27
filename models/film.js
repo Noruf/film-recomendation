@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+var User = require('../models/user');
+var Schema = mongoose.Schema;
 
 // Film Schema
 var FilmSchema = mongoose.Schema({
@@ -16,8 +18,10 @@ var FilmSchema = mongoose.Schema({
 
   actors: [{name: String, role: String}],
   meta:{
-    lastModified: { id: String, date: Date},
-    added: {id:String, date:Date}
+    //lastModified: {  id: String, date: Date},
+    //added: {id:String, date:Date}
+    lastModified: {  id:{ type: Schema.Types.ObjectId, ref: 'User' }, date: Date},
+    added: {id:{ type: Schema.Types.ObjectId, ref: 'User' }, date:Date}
   }
 
 });
