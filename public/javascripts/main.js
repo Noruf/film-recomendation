@@ -44,4 +44,11 @@ $(document).ready(function() {
       }
     });
   });
+
+  $(document).on('click','.btn-add-actor', function(e) {
+    target = $(e.target);
+    target.attr('disabled', 'disabled');
+    $('#actors').append('<div class="row"><div class="col-md-5"><input class="form-control" placeholder="name" name="name"></div><div class="col-md-1" align="center"><h4>as</h4></div><div class="entry input-group col-md-6"><input class="form-control" placeholder="role" name="role"><span class="input-group-btn"><button class="btn btn-success btn-add-actor" type="button"><span>+</span></button></span></div><br></div>');
+  });
+
 });

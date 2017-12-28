@@ -29,7 +29,6 @@ router.get('/add', ensureAuthenticated, function(req, res, next) {
 
 router.post('/add', function(req, res, next) {
   var film = createFilm(req);
-
   var errors = req.validationErrors();
 
   if (errors) {
@@ -100,9 +99,7 @@ router.post('/edit/:id', function(req, res) {
 function createFilm(req, oldFilm) {
   let film = oldFilm ? {} : new Film()
 
-  var lines = /[\r\n]+/g;
   var words = /\b\w+\b/g;
-  var rolesplit = /\s*[^a-zA-Z0-9\s]+\s*/;
 
   var title = req.body.title;
   var year = req.body.year;
@@ -114,16 +111,18 @@ function createFilm(req, oldFilm) {
   var country = req.body.country;
   var premiere = req.body.premiere;
   var minutes = req.body.minutes;
-  var actorsLines = req.body.actors.split(lines);
+  var names = req.body.name;
+  var roles = req.body.role;
+
   var actors = [];
-  actorsLines.forEach(function(line, i) {
-    if(line.length<1) return;
-    l = line.split(rolesplit);
+  for(let i=0;i<names.length;i++){
+    if(names[i]<1)continue;
     actors.push({
-      name: l[0]||"",
-      role: l[1]||""
+      name: names[i],
+      role: roles[i]
     });
-  });
+  }
+
 
   var meta = {
     lastModified: {
@@ -225,7 +224,8 @@ router.get('/:id', function(req, res, next) {
   Film.findById(req.params.id, function(err, film) {
     if (!req.user) {
       res.render('film', {
-        film: film
+        film: film,
+        title: `${film.title} (${film.year})`
       });
       return;
     }
@@ -238,7 +238,8 @@ router.get('/:id', function(req, res, next) {
         film.rating = rating.rating;
       }
       res.render('film', {
-        film: film
+        film: film,
+        title: `${film.title} (${film.year})`
       });
     });
   });

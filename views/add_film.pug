@@ -35,11 +35,22 @@ block content
       label.control-label time in minutes:
       input.form-control(name='minutes', type='number',min=1, max=600,value=film.minutes||90)
     
-    .form-group
-      label.control-label actors:
-      textarea.form-control(name='actors')=actorString
-          
-
+    .form-group#actors
+      h3 Actors:
+      if film.actors.length<1
+        -film.actors=[{name:"" ,role:""}]
+      each actor,i in film.actors
+        .row
+          .col-md-5
+           input.form-control(placeholder='name',name='name',value=actor.name)
+          .col-md-1(align='center')
+           h4 as
+          .entry.input-group.col-md-6
+             input.form-control(placeholder='role',name='role',value=actor.role)
+             span.input-group-btn
+               button.btn.btn-success.btn-add-actor(type='button')
+                 span +
+          br
     br
     input.btn.btn-primary(type='submit',value='Submit')
     

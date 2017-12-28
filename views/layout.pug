@@ -5,7 +5,7 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
 
 
-        title Welcome
+        title= title + " - I love FILMS"
 
         
         
@@ -26,8 +26,8 @@ body
               a.navbar-brand(href="/") I love FILMS
           .collapse.navbar-collapse#navbarCollapse
               ul.navbar-nav.mr-auto
-                  li.nav-item(class=(title == "Members" ? "active" : ""))
-                      a.nav-link( href="/" ) Members
+                  li.nav-item(class=(title == "Home" ? "active" : ""))
+                      a.nav-link( href="/" ) Home
                   li.nav-item(class=(title == "Film Database" ? "active" : ""))
                       a.nav-link( href="/films" ) Film Database
                   if user
