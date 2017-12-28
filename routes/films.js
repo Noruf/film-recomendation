@@ -219,28 +219,79 @@ router.post('/rate/:id/:rating', function(req, res, next) {
 });
 
 
+function median(values) {
+
+    values.sort( function(a,b) {return a - b;} );
+
+    var half = Math.floor(values.length/2);
+
+    if(values.length % 2)
+        return values[half];
+    else
+        return (values[half-1] + values[half]) / 2.0;
+}
+function average(values) {
+    let sum = 0;
+    for(let i=0;i<values.length;i++){
+      sum+=values[i];
+    }
+    return sum/values.length;
+}
+function std_deviation(values,avg){
+  let s=0;
+  for(let i=0;i<values.length;i++){
+    s+=Math.pow(values[i]-avg,2);
+  }
+  let result = Math.sqrt(s/values.length);
+  return result;
+}
 
 router.get('/:id', function(req, res, next) {
   Film.findById(req.params.id, function(err, film) {
-    if (!req.user) {
-      res.render('film', {
-        film: film,
-        title: `${film.title} (${film.year})`
-      });
-      return;
-    }
-    let query = {
-      userID: req.user._id,
-      filmID: req.params.id
-    };
-    Rating.findOne(query, function(err, rating) {
-      if (rating) {
-        film.rating = rating.rating;
+    Rating.find({filmID:film._id},function(err,ratings){
+      let stats;
+      if(ratings.length==0){
+        stats={median:'N/A',avg:'N/A',std:'N/A',votes:'0'}
+      }
+      else{
+        let values = ratings.map(a => a.rating);
+        let avg=average(values)
+        stats={
+          avg:avg,
+          median:median(values),
+          std:std_deviation(values,avg),
+          votes:values.length
+        }
+      }
+
+      // if (!req.user) {
+      //   res.render('film', {
+      //     film: film,
+      //     title: `${film.title} (${film.year})`
+      //   });
+      //   return;
+      // }
+      if(req.user){
+        let rating = ratings.find(x => x.userID.toString()==req.user._id);
+        if (rating) {
+          film.rating = rating.rating;
+        }
       }
       res.render('film', {
         film: film,
-        title: `${film.title} (${film.year})`
+        title: `${film.title} (${film.year})`,
+        stats:stats
       });
+
+      // let query = {
+      //   userID: req.user._id,
+      //   filmID: req.params.id
+      // };
+      // Rating.findOne(query, function(err, rating) {
+
+
+
+
     });
   });
 });

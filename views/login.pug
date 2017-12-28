@@ -1,8 +1,10 @@
 extends layout
 
 block content
-    h2.page-header Login
-    p Please login below
+    .page-header
+     h2 Login
+     p Please login below
+    hr
     form(method='post', action='/users/login')
         .form-group
             label Username
