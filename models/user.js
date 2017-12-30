@@ -22,10 +22,7 @@ var UserShema = mongoose.Schema({
   profileimage: {
     type: String
   },
-  recomendations: {
-    type: [{ type: Schema.Types.ObjectId, ref: 'Film' }],
-    "default" : []
-  },
+  recomendations: [{filmID:{ type: Schema.Types.ObjectId, ref: 'Film' }, rating:Number}],
   role:{
     type:Number,
     "default":0

@@ -35,9 +35,23 @@ $(document).ready(function() {
     $target.attr('disabled', 'disabled');
     $.ajax({
       type: 'POST',
-      url: '/recomendation/calculate',
+      url: '/recomendation/correlation',
       success: function(response) {
         console.log("correlation calculated!!");
+      },
+      error: function(err) {
+        alert(err.statusText)
+      }
+    });
+  });
+  $('#btn-recomendation').on('click', function(e) {
+    $target = $(e.target);
+    $target.attr('disabled', 'disabled');
+    $.ajax({
+      type: 'POST',
+      url: '/recomendation/calculate',
+      success: function(response) {
+        console.log("recomendation calculated!!");
       },
       error: function(err) {
         alert(err.statusText)

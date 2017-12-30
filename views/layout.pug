@@ -35,6 +35,8 @@ body
                           a.nav-link( href="/films/add" ) Add Film
                       li.nav-item(class=(title == "Neighbours" ? "active" : ""))
                           a.nav-link( href="/recomendation/neighbours" ) Neighbours
+                      li.nav-item(class=(title == "Recomendations" ? "active" : ""))
+                          a.nav-link( href="/recomendation/recomendations" ) Recomendations
               ul.nav.navbar-nav.navbar-right
                   if user
                       li.nav-item(class=(title == "Admin Tools" ? "active" : ""))
@@ -55,6 +57,11 @@ body
         != messages()
         block content
     
+    hr
+    .container
+      .card.bg-faded
+       .card-block
+        Copyright © 2018 Adam Zieliński
     
     //-script(src="https://code.jquery.com/jquery-3.2.1.min.js")
     script(src="/javascripts/lib/jquery-3.2.1.min.js")

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .page-header
+   h1 #{title}
+   p Here are films that are recomended for you based on your votes
+  hr
+    
+  table.table.table-striped.table-bordered
+    tr
+      th username
+      th similarity coefficient
+    each r, i in user.recomendations
+      tr
+        td #{r.filmID.title}
+        td #{r.rating}

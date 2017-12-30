@@ -20,6 +20,7 @@ block content
         - var i=1
         while i<=5
           button.btn.btn-md.btn-rating(class=(i==film.rating?'btn-success':'') ,rate=i,filmid=film._id) #{i++}
+  hr
   .container
     table.table.table-striped.table-bordered
       tr
@@ -46,10 +47,11 @@ block content
               tr
                 td #{actor.name}
                 td #{actor.role}
-        
-  .text-left.col-sm-10
-    #editGroup.btn-group(role='group', aria-label='')
-      a.button#edit.btn.btn-primary.btn-lg(href='/films/edit/'+film._id,  name='edit', aria-label='Edit') Edit
-      a.button#delete.btn.btn-danger.btn-lg.delete-film(href='#', data-id=film._id, aria-label='Delete') Delete
+  
+  if user
+    .text-left.col-sm-10
+      #editGroup.btn-group(role='group', aria-label='')
+        a.button#edit.btn.btn-primary.btn-lg(href='/films/edit/'+film._id,  name='edit', aria-label='Edit') Edit
+        a.button#delete.btn.btn-danger.btn-lg.delete-film(href='#', data-id=film._id, aria-label='Delete') Delete
 
           

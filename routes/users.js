@@ -119,15 +119,22 @@ router.get('/logout', function (req, res){
 });
 
 // Profile
-router.get('/profile', function (req, res){
+router.get('/profile', ensureAuthenticated,function (req, res){
   Rating.count({userID:req.user._id},function(err,count){
     req.user.filmsRated = count;
     res.render('profile', {title:'Profile', user: req.user});
   });
 });
 
-router.get('/admin',function(req,res){
+router.get('/admin',ensureAuthenticated,function(req,res){
   res.render('admin',{title:'Admin Tools'});
 });
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/users/login')
+};
 
 module.exports = router;

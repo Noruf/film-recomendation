@@ -264,13 +264,6 @@ router.get('/:id', function(req, res, next) {
         }
       }
 
-      // if (!req.user) {
-      //   res.render('film', {
-      //     film: film,
-      //     title: `${film.title} (${film.year})`
-      //   });
-      //   return;
-      // }
       if(req.user){
         let rating = ratings.find(x => x.userID.toString()==req.user._id);
         if (rating) {
@@ -282,15 +275,6 @@ router.get('/:id', function(req, res, next) {
         title: `${film.title} (${film.year})`,
         stats:stats
       });
-
-      // let query = {
-      //   userID: req.user._id,
-      //   filmID: req.params.id
-      // };
-      // Rating.findOne(query, function(err, rating) {
-
-
-
 
     });
   });

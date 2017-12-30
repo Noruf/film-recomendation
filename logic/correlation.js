@@ -19,17 +19,9 @@ module.exports.calcStats = function (arr){
 //calculate Pearson Corellation
 module.exports.pearson = function (ratings1,ratings2){
   let ratings=[];
-  //console.log(ratings2);
+
   for(let i=0;i<ratings1.length;i++){
     let r2 = ratings2.find(x => x.filmID.toString() == ratings1[i].filmID.toString());
-    console.log(typeof(ratings1[i].filmID.toString()));
-
-    console.log(typeof("sadsadsda"));
-    console.log(ratings1[i].filmID);
-    for(let k=0;k<ratings2.length;k++){
-      console.log(ratings2[k].filmID.valueOf());
-    }
-    console.log("111");
     if(r2){
       ratings.push([ratings1[i].rating, r2.rating]);
     }
@@ -48,9 +40,8 @@ module.exports.pearson = function (ratings1,ratings2){
 module.exports.calculateCorrelation = function(userID1,userID2){
   Rating.find({userID:userID1},function(err,ratings1){
     Rating.find({userID:userID2},function(err,ratings2){
-      //console.log(ratings2);
+
       let r = module.exports.pearson(ratings1,ratings2);
-      //console.log(r);
       if(!r)return;
       Correlation.findOne({usersID:{ $all:[userID1,userID2] }},function(err,cor){
         if(cor){

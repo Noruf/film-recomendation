@@ -43,11 +43,11 @@ block content
         -film.actors=[{name:"" ,role:""}]
       each actor,i in film.actors
         .row
-          .col-md-5
+          .col-sm-5
            input.form-control(placeholder='name',name='name',value=actor.name)
-          .col-md-1(align='center')
+          .col-sm-1(align='center')
            h4 as
-          .entry.input-group.col-md-6
+          .entry.input-group.col-sm-6
              input.form-control(placeholder='role',name='role',value=actor.role)
              span.input-group-btn
                button.btn.btn-success.btn-add-actor(type='button')
