@@ -5,7 +5,7 @@ var Film = require('../models/film');
 var Rating = require('../models/rating');
 
 router.get('/', function(req, res, next) {
-  Film.find({}, function(err, films) {
+  Film.find({}).sort('-year').exec(function(err, films) {
     if (err) {
       console.log(err);
     } else {
@@ -35,7 +35,8 @@ router.post('/add', function(req, res, next) {
     res.render('add_film', {
       title: 'Add Film',
       errors: errors,
-      film: film
+      film: film,
+      user:req.user
     });
   } else {
 
@@ -44,7 +45,7 @@ router.post('/add', function(req, res, next) {
       if (err) throw err;
       console.log(film);
       req.flash('success', 'Film has been added');
-      res.redirect('/films');
+      res.redirect('/films/'+ film._id);
     });
   }
 
@@ -76,7 +77,8 @@ router.post('/edit/:id', function(req, res) {
       res.render('add_film', {
         title: 'Edit Film',
         errors: errors,
-        film: film
+        film: film,
+        user:req.user
       })
     };
     let query = {
@@ -101,14 +103,13 @@ function createFilm(req, oldFilm) {
 
   var words = /\b\w+\b/g;
 
-  var title = req.body.title;
+  var title = req.body.title.trim();
   var year = req.body.year;
-  var description = req.body.description;
+  var description = req.body.description.trim();
   var genre = req.body.genre.match(words);
-  var director = req.body.director;
-  var writer = req.body.writer;
-  var scenarist = req.body.scenarist;
-  var country = req.body.country;
+  var director = req.body.director.trim();
+  var scenarist = req.body.scenarist.trim();
+  var country = req.body.country.trim();
   var premiere = req.body.premiere;
   var minutes = req.body.minutes;
   var names = req.body.name;
@@ -118,8 +119,8 @@ function createFilm(req, oldFilm) {
   for(let i=0;i<names.length;i++){
     if(names[i]<1)continue;
     actors.push({
-      name: names[i],
-      role: roles[i]
+      name: names[i].trim(),
+      role: roles[i].trim()
     });
   }
 
@@ -152,7 +153,6 @@ function createFilm(req, oldFilm) {
 
   film.genre = genre;
   film.director = director;
-  film.writer = writer;
   film.scenarist = scenarist;
   film.country = country;
   film.premiere = new Date(premiere);
@@ -248,6 +248,10 @@ function std_deviation(values,avg){
 
 router.get('/:id', function(req, res, next) {
   Film.findById(req.params.id, function(err, film) {
+    if (err||!film) {
+      res.status(500).send();
+      return;
+    }
     Rating.find({filmID:film._id},function(err,ratings){
       let stats;
       if(ratings.length==0){

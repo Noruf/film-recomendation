@@ -23,3 +23,9 @@ div.rating-box{
   padding: 25px 25px 25px 0px;
   background: #cccccc;
 }
+li.nav-item.active{
+  background: #cccccc;
+}
+div#actors div.row{
+  padding-bottom: 10px;
+}

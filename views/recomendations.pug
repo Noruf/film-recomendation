@@ -6,11 +6,14 @@ block content
    p Here are films that are recomended for you based on your votes
   hr
     
-  table.table.table-striped.table-bordered
+  table.table.table-striped.table-bordered.table-hover
     tr
-      th username
-      th similarity coefficient
+      th Film title
+      th Expected rating
     each r, i in user.recomendations
-      tr
+      tr(onclick=`window.location=\"/films/${r.filmID._id}\"`)
         td #{r.filmID.title}
         td #{r.rating}
+
+      //-tr(onclick="window.location='/films/' + 'r.filmID._id' ;")
+        

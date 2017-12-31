@@ -9,10 +9,13 @@ block content
        p= film.description
     .col-md-4.text-right
       .rating-box
-        h3 Average: #{stats.avg}
+        h3 
+         |Average: 
+         =stats.votes==0?stats.avg:stats.avg.toFixed(2)
         span median: #{stats.median}
         br
-        span std deviation: #{stats.std}
+        span std deviation: 
+         =stats.votes==0?stats.std:stats.std.toFixed(2)
         br
         span number of votes: #{stats.votes}
         br
@@ -42,7 +45,7 @@ block content
   if film.actors.length>0
       h2 actors
       .container
-        table.table.table-striped.table-bordered.table-hover
+        table.table.table-striped.table-bordered
           each actor, i in film.actors
               tr
                 td #{actor.name}
