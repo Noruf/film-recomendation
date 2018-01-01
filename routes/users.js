@@ -6,7 +6,8 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var User = require('../models/user');
-var Rating = require('../models/rating')
+var Rating = require('../models/rating');
+var Film = require('../models/film');
 
 /* GET users listing. */
 // Home
@@ -122,7 +123,10 @@ router.get('/logout', function (req, res){
 router.get('/profile', ensureAuthenticated,function (req, res){
   Rating.count({userID:req.user._id},function(err,count){
     req.user.filmsRated = count;
-    res.render('profile', {title:'Profile', user: req.user});
+    Film.count({'meta.added.id':req.user._id},function(err,filmsadded){
+      req.user.filmsAdded = filmsadded;
+      res.render('profile', {title:'Profile', user: req.user});
+    });
   });
 });
 

@@ -4,7 +4,7 @@ var Correlation = require('../models/correlation');
 
 
 module.exports.find = function(user) {
-    Correlation.find({usersID: {$all: [user._id]}}, function(err, coefficients) {
+    Correlation.find({usersID: {$all: [user._id], r:{$gt: 0}}}, function(err, coefficients) {
       if(err||coefficients.length<1){
         return;
       }
@@ -21,9 +21,7 @@ module.exports.find = function(user) {
         for(let i=0;i<ratings.length;i++){
           films.add(ratings[i].filmID.toString());
         }
-        //console.log(films);
         for(let filmID of films){
-          console.log(filmID);
           let filmRatings = ratings.filter(a => a.filmID.toString()==filmID);
           let sum=0;
           let weight=0

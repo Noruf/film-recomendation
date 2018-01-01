@@ -5,12 +5,11 @@ block content
    h1 #{title}
    p Users with similar film taste to you will be listed in the table below
   hr
-  .container
-    table.table.table-striped.table-bordered
+  table.table.table-striped.table-bordered
+    tr
+      th Username
+      th Similarity coefficient
+    each c, i in coefficients
       tr
-        th username
-        th similarity coefficient
-      each c, i in coefficients
-        tr
-          td #{c.username}
-          td #{c.coefficient}
+        td #{c.username}
+        td #{c.coefficient.toFixed(2)}

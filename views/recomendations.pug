@@ -13,7 +13,4 @@ block content
     each r, i in user.recomendations
       tr(onclick=`window.location=\"/films/${r.filmID._id}\"`)
         td #{r.filmID.title}
-        td #{r.rating}
-
-      //-tr(onclick="window.location='/films/' + 'r.filmID._id' ;")
-        
+        td #{r.rating.toFixed(2)}

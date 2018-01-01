@@ -3,6 +3,7 @@ extends layout
 block content
   .page-header
    h1 #{title}
+   p Number of films in database: #{films.length}
   hr
   ul.list-group
     each film, i in films

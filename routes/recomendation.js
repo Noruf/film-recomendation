@@ -19,7 +19,7 @@ router.get('/recomendations',ensureAuthenticated,function(req, res, next) {
       let rec = user.recomendations;
       let watched = ratings.map(x => x.filmID.toString());
       let notwatched = rec.filter(x => !watched.includes(x.filmID._id.toString()));
-      user.recomendations=notwatched;
+      user.recomendations = notwatched.sort((a,b)=> b.rating-a.rating);
       res.render('recomendations',{title:'Recomendations',user:user});
     });
   });
@@ -28,7 +28,7 @@ router.get('/recomendations',ensureAuthenticated,function(req, res, next) {
 
 
 router.get('/neighbours',function(req, res, next) {
-  Correlation.find({usersID:{ $all:[req.user._id] }}).populate({path:'usersID',select:'username'}).exec(function(err,cors){
+  Correlation.find({usersID:{ $all:[req.user._id] }}).sort({r:-1}).populate({path:'usersID',select:'username'}).exec(function(err,cors){
     let coefficients = [];
     for(let i=0;i<cors.length;i++){
       let users = cors[i].usersID

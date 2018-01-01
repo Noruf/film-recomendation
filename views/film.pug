@@ -28,7 +28,7 @@ block content
     table.table.table-striped.table-bordered
       tr
         td genre
-        td= film.genre
+        td= film.genre.join(', ')
       tr
         td director
         td= film.director
@@ -40,7 +40,7 @@ block content
         td= film.country
       tr
         td premiere
-        td= film.premiere.toDateString()
+        td= film.premiere.toLocaleDateString()
   
   if film.actors.length>0
       h2 actors

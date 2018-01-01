@@ -26,7 +26,6 @@ module.exports.pearson = function (ratings1,ratings2){
       ratings.push([ratings1[i].rating, r2.rating]);
     }
   }
-  //console.log(ratings);
   if (ratings.length<5) return undefined;
   let stats = module.exports.calcStats(ratings);
 
