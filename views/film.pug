@@ -25,31 +25,31 @@ block content
           button.btn.btn-md.btn-rating(class=(i==film.rating?'btn-success':'') ,rate=i,filmid=film._id) #{i++}
   hr
   .container
-    table.table.table-striped.table-bordered
-      tr
-        td genre
-        td= film.genre.join(', ')
-      tr
-        td director
-        td= film.director
-      tr
-        td scenarist
-        td= film.scenarist
-      tr
-        td country
-        td= film.country
-      tr
-        td premiere
-        td= film.premiere.toLocaleDateString()
-  
+    table.table.table-striped
+      tr.row
+        td.col-sm-6 genre
+        td.col-sm-6= film.genre.join(', ')
+      tr.row
+        td.col-sm-6 director
+        td.col-sm-6= film.director
+      tr.row
+        td.col-sm-6 scenarist
+        td.col-sm-6= film.scenarist
+      tr.row
+        td.col-sm-6 country
+        td.col-sm-6= film.country
+      tr.row
+        td.col-sm-6 premiere
+        td.col-sm-6= film.premiere.toLocaleDateString()
+  hr
   if film.actors.length>0
       h2 actors
       .container
-        table.table.table-striped.table-bordered
+        table.table.table-striped
           each actor, i in film.actors
-              tr
-                td #{actor.name}
-                td #{actor.role}
+              tr.row
+                td.col-sm-6 #{actor.name}
+                td.col-sm-6 #{actor.role}
   
   if user
     .text-left.col-sm-10

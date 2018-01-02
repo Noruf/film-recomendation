@@ -13,7 +13,7 @@ block content
       input.form-control.input-md#title(name='title', type='text', value=film.title)
     .form-group
       label.control-label year:
-      input.form-control(name='year', type='number', min=1900, max=2050,value=film.year||2017)
+      input.form-control#year(name='year', type='number', min=1900, max=2050,value=film.year||2017)
     .form-group
       label.control-label description:
       textarea.form-control(name='description')=film.description
@@ -31,7 +31,7 @@ block content
       input.form-control(name='country', type='text',value=film.country)
     .form-group
       label.control-label premiere:
-      input.form-control(type='date',name='premiere',\
+      input.form-control#premiere(type='date',name='premiere',\
       value=film.premiere?film.premiere.toJSON().substr(0,10):'')
     .form-group
       label.control-label time in minutes:

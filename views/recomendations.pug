@@ -6,11 +6,11 @@ block content
    p Here are films that are recomended for you based on your votes
   hr
     
-  table.table.table-striped.table-bordered.table-hover
-    tr
-      th Film title
-      th Expected rating
+  table.table.table-striped.table-hover
+    tr.row
+      th.col-sm-6 Film title
+      th.col-sm-6 Expected rating
     each r, i in user.recomendations
-      tr(onclick=`window.location=\"/films/${r.filmID._id}\"`)
-        td #{r.filmID.title}
-        td #{r.rating.toFixed(2)}
+      tr.row(onclick=`window.location=\"/films/${r.filmID._id}\"`)
+        td.col-sm-6 #{r.filmID.title}
+        td.col-sm-6 #{r.rating.toFixed(2)}
