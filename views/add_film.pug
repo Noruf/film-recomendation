@@ -12,29 +12,29 @@ block content
       label.control-label(for='title') Title
       input.form-control.input-md#title(name='title', type='text', value=film.title)
     .form-group
-      label.control-label year:
+      label.control-label Year:
       input.form-control#year(name='year', type='number', min=1900, max=2050,value=film.year||2017)
     .form-group
-      label.control-label description:
+      label.control-label Description:
       textarea.form-control(name='description')=film.description
     .form-group
-      label.control-label genre:
+      label.control-label Genre:
       input.form-control(name='genre', type='text',value=film.genre?film.genre.toString():'')
     .form-group
-      label.control-label director:
+      label.control-label Director:
       input.form-control(name='director', type='text',value=film.director)
     .form-group
-      label.control-label scenarist:
+      label.control-label Scenarist:
       input.form-control(name='scenarist', type='text',value=film.scenarist)
     .form-group
-      label.control-label country:
+      label.control-label Country:
       input.form-control(name='country', type='text',value=film.country)
     .form-group
-      label.control-label premiere:
+      label.control-label Premiere:
       input.form-control#premiere(type='date',name='premiere',\
       value=film.premiere?film.premiere.toJSON().substr(0,10):'')
     .form-group
-      label.control-label time in minutes:
+      label.control-label Time in minutes:
       input.form-control(name='minutes', type='number',min=1, max=600,value=film.minutes||90)
     
     .form-group#actors
@@ -44,11 +44,11 @@ block content
       each actor,i in film.actors
         .row
           .col-sm-5
-           input.form-control(placeholder='name',name='name',value=actor.name)
+           input.form-control(placeholder='name',name='name',type='text',value=actor.name)
           .col-sm-1(align='center')
            h4 as
           .entry.input-group.col-sm-6
-             input.form-control(placeholder='role',name='role',value=actor.role)
+             input.form-control(placeholder='role',name='role',type='text',value=actor.role)
              span.input-group-btn
                button.btn.btn-success.btn-add-actor(type='button')
                  span +

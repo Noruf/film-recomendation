@@ -20,6 +20,7 @@ block content
         span number of votes: #{stats.votes}
         br
         br
+        p Your Rating:
         - var i=1
         while i<=5
           button.btn.btn-md.btn-rating(class=(i==film.rating?'btn-success':'') ,rate=i,filmid=film._id) #{i++}
@@ -27,23 +28,23 @@ block content
   .container
     table.table.table-striped
       tr.row
-        td.col-sm-6 genre
+        td.col-sm-6 Genre
         td.col-sm-6= film.genre.join(', ')
       tr.row
-        td.col-sm-6 director
+        td.col-sm-6 Director
         td.col-sm-6= film.director
       tr.row
-        td.col-sm-6 scenarist
+        td.col-sm-6 Scenarist
         td.col-sm-6= film.scenarist
       tr.row
-        td.col-sm-6 country
+        td.col-sm-6 Country
         td.col-sm-6= film.country
       tr.row
-        td.col-sm-6 premiere
+        td.col-sm-6 Premiere
         td.col-sm-6= film.premiere.toLocaleDateString()
   hr
   if film.actors.length>0
-      h2 actors
+      h2 Actors
       .container
         table.table.table-striped
           each actor, i in film.actors

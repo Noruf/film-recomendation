@@ -101,7 +101,7 @@ router.post('/edit/:id', function(req, res) {
 function createFilm(req, oldFilm) {
   let film = oldFilm ? {} : new Film()
 
-  var words = /\b\w+\b/g;
+  var words = /\b[\w-]+\b/g;
 
   var title = req.body.title.trim();
   var year = req.body.year;
@@ -186,25 +186,25 @@ router.delete('/:id', function(req, res) {
   });
 });
 
-router.post('/rate/:id/:rating', function(req, res, next) {
+router.post('/rate', function(req, res, next) {
   if (!req.user) {
     res.status(500).send();
     return;
   }
   let query = {
     userID: req.user._id,
-    filmID: req.params.id
+    filmID: req.body.filmID
   };
   Rating.findOne(query, function(err, rating) {
     if (rating) {
       rating.set({
-        rating: req.params.rating
+        rating: req.body.rating
       });
     } else {
       rating = new Rating({
         userID: req.user._id,
-        filmID: req.params.id,
-        rating: req.params.rating
+        filmID: req.body.filmID,
+        rating: req.body.rating
       });
     }
     rating.save(rating, function(err) {
