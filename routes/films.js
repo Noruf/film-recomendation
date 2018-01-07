@@ -5,17 +5,35 @@ var Film = require('../models/film');
 var Rating = require('../models/rating');
 
 router.get('/', function(req, res, next) {
-  Film.find({}).sort('-year').exec(function(err, films) {
+
+  let query = Object.assign({}, req.query);
+  let orderby = query.orderby||'-year';
+  delete query.orderby;
+  if(query.title) query.title = new RegExp(query.title);
+  if(query.country) query.country = new RegExp(query.country);
+  Film.find(query).sort(orderby).exec(function(err, films) {
     if (err) {
       console.log(err);
     } else {
       res.render('films', {
         title: 'Film Database',
-        films: films
+        films: films,
+        query: req.query
       });
     }
   });
-});
+
+//   Film.find({}).sort('-year').exec(function(err, films) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.render('films', {
+//         title: 'Film Database',
+//         films: films
+//       });
+//     }
+//   });
+ });
 
 
 router.get('/add', ensureAuthenticated, function(req, res, next) {

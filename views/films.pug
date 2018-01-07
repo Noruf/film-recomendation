@@ -5,6 +5,48 @@ block content
    h1 #{title}
    p Number of films in database: #{films.length}
   hr
+  a.btn.btn-info(data-toggle='collapse', href='#filterform', aria-expanded='false', aria-controls='filterform')
+   | Filters
+  .collapse#filterform
+    form
+      h3 Search by:
+      .form-group.row.text-right
+        .col-md-1
+         label.col-form-label(for='title') Title:
+        .col
+         input#titlefilter.form-control(type='text', placeholder='Film title', value=query.title)
+        .col-md-1
+         label.col-form-label(for='year') Year:
+        .col
+         input#yearfilter.form-control(type='number', placeholder='Year',value=query.year)
+        .col-md-1
+         label.col-form-label(for='genre') Genre:
+        .col
+         input#genrefilter.form-control(type='text', placeholder='Genre',value=query.genre)
+        .col-md-1
+         label.col-form-label(for='country') Country:
+        .col
+         input#countryfilter.form-control(type='text', placeholder='Country' ,value=query.country)
+      h3 Sort by:
+      .form-group.row.text-center
+        .form-check.col-sm
+          label.form-check-label
+            input#titleRadio.form-check-input(type='radio', name='orderby', value='title')
+            |     Title
+        .form-check.col-sm
+          label.form-check-label
+            input#yearRadio.form-check-input(type='radio', name='orderby', value='year', checked='')
+            |     Year
+        .form-check.col-sm
+          label.form-check-label
+            input#dateRadio.form-check-input(type='radio', name='orderby', value='meta.added.date')
+            |     Date added
+        .col-sm
+          select#orderSelect.form-control
+            option Descending
+            option Ascending
+      input#btn-filter.btn.btn-primary(type='submit',value='Filter')
+  hr
   ul.list-group
     each film, i in films
       a.list-group-item.list-group-item-action(href="/films/"+film._id)= film.title+" ("+film.year+")"

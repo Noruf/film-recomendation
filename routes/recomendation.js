@@ -57,7 +57,11 @@ router.post('/correlation',function(req, res, next) {
 });
 
 router.post('/calculate',function(req, res, next) {
-  RecomendationLogic.find(req.user);
+  User.find({},function(err,users){
+    for(let user of users){
+      RecomendationLogic.find(user);
+    }  
+  });
   res.send('Success');
 });
 

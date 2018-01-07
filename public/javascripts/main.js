@@ -81,4 +81,40 @@ $(document).ready(function() {
     $target.value = $target.value.trim();
   });
 
+  $('#btn-filter').on('click', function(e){
+    e.preventDefault();
+    let title = $('#titlefilter')[0].value;
+    let genre = $('#genrefilter')[0].value;
+    let year = $('#yearfilter')[0].value;
+    let country = $('#countryfilter')[0].value;
+
+    let goto = "/films?";
+    if(title!="") goto+="title="+title+"&";
+    if(year!="") goto+="year="+year+"&";
+    if(genre!="") goto+="genre="+genre+"&";
+    if(country!="") goto+="country="+country+"&";
+
+    let orderby = $('input[type=radio]:checked')[0].value;
+    let order = $('#orderSelect')[0].value;
+    goto += "orderby=" +(order=="Descending"?"-":"")+ orderby;
+    //goto +=  "order=" + order;
+
+
+    console.log(goto);
+    window.location.replace(goto);
+  });
+  let searchParams = new URLSearchParams(window.location.search);
+  if($('#titleRadio').length && searchParams.has('orderby')){
+      let order = searchParams.get('orderby');
+      $('#orderSelect').val(order.charAt(0)=='-'?'Descending':'Ascending');
+      if(order.charAt(0)=='-') order = order.substr(1);
+      $("#titleRadio").prop("checked", (order=='title'));
+      $("#yearRadio").prop("checked", (order=='year'));
+      $("#dateRadio").prop("checked", (order=='meta.added.date'));
+      console.log("elo");
+  }
+
+
+
+
 });

@@ -29,3 +29,6 @@ li.nav-item.active{
 div#actors div.row{
   padding-bottom: 10px;
 }
+label{
+  font-weight: bold;
+}
