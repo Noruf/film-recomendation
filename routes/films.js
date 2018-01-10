@@ -9,31 +9,27 @@ router.get('/', function(req, res, next) {
   let query = Object.assign({}, req.query);
   let orderby = query.orderby||'-year';
   delete query.orderby;
-  if(query.title) query.title = new RegExp(query.title);
-  if(query.country) query.country = new RegExp(query.country);
+  if(query.title) query.title = new RegExp(query.title,"i");
+  if(query.country) query.country = new RegExp(query.country,"i");
+  if(query.genre) query.genre = new RegExp(query.genre,"i");
   Film.find(query).sort(orderby).exec(function(err, films) {
     if (err) {
       console.log(err);
     } else {
-      res.render('films', {
-        title: 'Film Database',
-        films: films,
-        query: req.query
+      Film.count({}, function(err,count){
+        films.count = count;
+        res.render('films', {
+          title: 'Film Database',
+          films: films,
+          query: req.query
+        });
       });
     }
   });
+});
 
-//   Film.find({}).sort('-year').exec(function(err, films) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.render('films', {
-//         title: 'Film Database',
-//         films: films
-//       });
-//     }
-//   });
- });
+
+
 
 
 router.get('/add', ensureAuthenticated, function(req, res, next) {
