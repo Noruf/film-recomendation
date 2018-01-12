@@ -2,10 +2,10 @@ extends layout
 
 block content
     .page-header
-      h2 Profile
+      h1 Profile
     hr
     .container
-      table.table.table-striped.table-bordered.table-hover
+      table.table.table-striped.table-bordered
         tr
           td Login
           td #{user.username}
@@ -15,6 +15,12 @@ block content
         tr
           td Email
           td #{user.email}
+    hr
+    br
+    h2 User statistics
+    br
+    .container
+      table.table.table-striped.table-bordered
         tr
           td Films rated
           td #{user.filmsRated}

@@ -10,32 +10,32 @@ block content
   form.form-horizontal(method='POST', action=(title=='Add Film'?'/films/add':'/films/edit/'+film._id))
     .form-group
       label.control-label(for='title') Title
-      input.form-control.input-md#title(name='title', type='text', value=film.title)
+      input.form-control.input-md#title(name='title', type='text', placeholder="Title", value=film.title)
     .form-group
       label.control-label Year:
-      input.form-control#year(name='year', type='number', min=1900, max=2050,value=film.year||2017)
+      input.form-control#year(name='year', type='number', min=1900, max=2050, placeholder="Year", value=film.year||2018)
     .form-group
       label.control-label Description:
-      textarea.form-control(name='description')=film.description
+      textarea.form-control(name='description', placeholder="Description")=film.description
     .form-group
       label.control-label Genre:
-      input.form-control(name='genre', type='text',value=film.genre?film.genre.toString():'')
+      input.form-control(name='genre', type='text', placeholder="Genre", value=film.genre?film.genre.toString():'')
     .form-group
       label.control-label Director:
-      input.form-control(name='director', type='text',value=film.director)
+      input.form-control(name='director', type='text', placeholder="Director", value=film.director)
     .form-group
       label.control-label Scenarist:
-      input.form-control(name='scenarist', type='text',value=film.scenarist)
+      input.form-control(name='scenarist', type='text', placeholder="Scenarist", value=film.scenarist)
     .form-group
       label.control-label Country:
-      input.form-control(name='country', type='text',value=film.country)
+      input.form-control(name='country', type='text', placeholder="Country", value=film.country)
     .form-group
       label.control-label Premiere:
       input.form-control#premiere(type='date',name='premiere',\
       value=film.premiere?film.premiere.toJSON().substr(0,10):'')
     .form-group
       label.control-label Time in minutes:
-      input.form-control(name='minutes', type='number',min=1, max=600,value=film.minutes||90)
+      input.form-control(name='minutes', type='number',min=1, max=600, placeholder="Time in minutes", value=film.minutes||90)
     
     .form-group#actors
       h3 Actors:

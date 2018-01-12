@@ -9,11 +9,6 @@ var User = require('../models/user');
 var Rating = require('../models/rating');
 var Film = require('../models/film');
 
-/* GET users listing. */
-// Home
-router.get('/', function (req, res, next) {
-    res.send('respond with a resource');
-});
 
 // Register
 router.get('/register', function (req, res, next) {

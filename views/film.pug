@@ -12,12 +12,12 @@ block content
         h3 
          |Average: 
          =stats.votes==0?stats.avg:stats.avg.toFixed(2)
-        span median: #{stats.median}
+        span Median: #{stats.median}
         br
-        span std deviation: 
+        span Std. deviation: 
          =stats.votes==0?stats.std:stats.std.toFixed(2)
         br
-        span number of votes: #{stats.votes}
+        span Number of votes: #{stats.votes}
         br
         br
         p Your Rating:
