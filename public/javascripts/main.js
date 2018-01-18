@@ -31,7 +31,7 @@ $(document).ready(function() {
         $target.addClass('btn-success');
       },
       error: function(err) {
-        alert(err.statusText)
+        alert(err.responseJSON.error)
       }
     });
   });

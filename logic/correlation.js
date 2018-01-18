@@ -19,14 +19,18 @@ module.exports.calcStats = function (arr){
 //calculate Pearson Corellation
 module.exports.pearson = function (ratings1,ratings2){
   let ratings=[];
-
+  //find common ratings
   for(let i=0;i<ratings1.length;i++){
+    console.log(ratings2);
     let r2 = ratings2.find(x => x.filmID.toString() == ratings1[i].filmID.toString());
     if(r2){
       ratings.push([ratings1[i].rating, r2.rating]);
     }
   }
+  //count correlation only for 5 or more film ratings in common
   if (ratings.length<5) return undefined;
+
+  //calculate averages, sum of products and square sums
   let stats = module.exports.calcStats(ratings);
 
   let r = (stats.sumProducts - stats.n * stats.avg1 * stats.avg2)/

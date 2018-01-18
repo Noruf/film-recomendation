@@ -202,7 +202,15 @@ router.delete('/:id', function(req, res) {
 
 router.post('/rate', function(req, res, next) {
   if (!req.user) {
-    res.status(500).send();
+    res.status(500).send({
+      error: 'You are not logged in!'
+    });
+    return;
+  }
+  if(!req.body.filmID||!req.body.rating){
+    res.status(500).send({
+      error: 'Something went wrong!'
+    });
     return;
   }
   let query = {
