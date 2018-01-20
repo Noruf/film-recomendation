@@ -1,10 +1,8 @@
 var Rating = require('../models/rating');
 var Correlation = require('../models/correlation');
 
-
-
 module.exports.find = function(user) {
-    Correlation.find({usersID: {$all: [user._id], r:{$gt: 0}}}, function(err, coefficients) {
+    Correlation.find({usersID: {$all: [user._id]}, r:{$gt: 0}}, function(err, coefficients) {
       if(err||coefficients.length<1){
         return;
       }
@@ -17,10 +15,7 @@ module.exports.find = function(user) {
       }
       Rating.find({userID: {$in: users}}, function(err, ratings) {
         let recomendations = [];
-        let films = new Set();
-        for(let i=0;i<ratings.length;i++){
-          films.add(ratings[i].filmID.toString());
-        }
+        let films = new Set(ratings.map(a => a.filmID.toString()));
         for(let filmID of films){
           let filmRatings = ratings.filter(a => a.filmID.toString()==filmID);
           let sum=0;
@@ -41,7 +36,6 @@ module.exports.find = function(user) {
             console.log(err);
           }
         });
-
       });
     });
   }

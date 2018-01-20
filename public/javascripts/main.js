@@ -97,10 +97,7 @@ $(document).ready(function() {
     let orderby = $('input[type=radio]:checked')[0].value;
     let order = $('#orderSelect')[0].value;
     goto += "orderby=" +(order=="Descending"?"-":"")+ orderby;
-    //goto +=  "order=" + order;
 
-
-    console.log(goto);
     window.location.replace(goto);
   });
   let searchParams = new URLSearchParams(window.location.search);
@@ -111,10 +108,6 @@ $(document).ready(function() {
       $("#titleRadio").prop("checked", (order=='title'));
       $("#yearRadio").prop("checked", (order=='year'));
       $("#dateRadio").prop("checked", (order=='meta.added.date'));
-      console.log("elo");
   }
-
-
-
 
 });
